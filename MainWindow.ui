@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QTabWidget" name="tabWidget">
+    <property name="geometry">
+     <rect>
+      <x>9</x>
+      <y>9</y>
+      <width>611</width>
+      <height>351</height>
+     </rect>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="Download">
+     <attribute name="title">
+      <string>Download</string>
+     </attribute>
+     <widget class="QPushButton" name="pushButtonWeekly">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>120</y>
+        <width>56</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Weekly</string>
+      </property>
+      <property name="default">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButtonDaily">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>120</y>
+        <width>56</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Dailly</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButtonTickers">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>20</y>
+        <width>56</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Get Tickers</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="Indicators">
+     <attribute name="title">
+      <string>Indicators</string>
+     </attribute>
+    </widget>
+    <widget class="QWidget" name="Algo">
+     <attribute name="title">
+      <string>Algo</string>
+     </attribute>
+    </widget>
+    <widget class="QWidget" name="Apply">
+     <attribute name="title">
+      <string>Apply</string>
+     </attribute>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>18</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <tabstops>
+  <tabstop>pushButtonTickers</tabstop>
+  <tabstop>pushButtonWeekly</tabstop>
+  <tabstop>pushButtonDaily</tabstop>
+  <tabstop>tabWidget</tabstop>
+ </tabstops>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>pushButtonTickers</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>getallsymbols()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>217</x>
+     <y>73</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>95</x>
+     <y>-6</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>getallsymbols()</slot>
+ </slots>
+</ui>
