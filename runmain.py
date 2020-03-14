@@ -5,6 +5,7 @@ from PyQt5.QtMultimedia import *
 from PyQt5.QtMultimediaWidgets import *
 from main4 import Ui_MainWindow
 import pandas as pd
+from datetime import datetime
 import tickersymbols
 import config
 
@@ -18,7 +19,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 		self.dailydownloadthread = DailyDownLoadThread()
 		config.startyear = self.dateEditStart.date().year();config.startmonth = self.dateEditStart.date().month();config.startday = self.dateEditStart.date().day()
 		config.endyear = self.dateEditEnd.date().year();config.endmonth = self.dateEditEnd.date().month();config.endday = self.dateEditEnd.date().day()
-
+		self.checkBoxToday.stateChanged.connect(self.CalendarHide)
 
 	def getallsymbols(self):
 		config.startyear = self.dateEditStart.date().year();config.startmonth = self.dateEditStart.date().month();config.startday = self.dateEditStart.date().day()
@@ -27,6 +28,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
 	def stopdailydownload(self):
 		self.dailydownloadthread.stopdailydownload()
+
+	def CalendarHide(self, state):
+		if self.checkBoxToday.isChecked(): 
+			self.dateEditEnd.setEnabled(False)
+			config.endyear = datetime.today().strftime('%Y')
+			config.endmonth = datetime.today().strftime('%m')
+			config.endday = datetime.today().strftime('%d')
+		else: 
+			self.dateEditEnd.setEnabled(True)
 
 class DailyDownLoadThread(QThread):
 	signal = pyqtSignal('PyQt_PyObject')
