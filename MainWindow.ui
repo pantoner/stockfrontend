@@ -164,6 +164,33 @@
 QDateEdit{ color: red,basesize:120x48 }
 </string>
          </property>
+         <property name="dateTime">
+          <datetime>
+           <hour>0</hour>
+           <minute>0</minute>
+           <second>0</second>
+           <year>2019</year>
+           <month>1</month>
+           <day>1</day>
+          </datetime>
+         </property>
+         <property name="maximumDate">
+          <date>
+           <year>2019</year>
+           <month>1</month>
+           <day>1</day>
+          </date>
+         </property>
+         <property name="minimumDate">
+          <date>
+           <year>1986</year>
+           <month>1</month>
+           <day>1</day>
+          </date>
+         </property>
+         <property name="calendarPopup">
+          <bool>true</bool>
+         </property>
         </widget>
        </item>
        <item row="0" column="1" rowspan="2">
@@ -205,7 +232,7 @@ QDateEdit{ color: red,basesize:120x48 }
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLineEdit" name="lineEdit">
+        <widget class="QLineEdit" name="lineEditDB">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -295,7 +322,7 @@ QDateEdit{ color: red,basesize:120x48 }
       </property>
       <layout class="QFormLayout" name="formLayout_3">
        <item row="0" column="1">
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="pushButtonStop">
          <property name="minimumSize">
           <size>
            <width>120</width>
@@ -364,6 +391,33 @@ QDateEdit{ color: red,basesize:120x48 }
            <width>120</width>
            <height>40</height>
           </size>
+         </property>
+         <property name="dateTime">
+          <datetime>
+           <hour>23</hour>
+           <minute>59</minute>
+           <second>59</second>
+           <year>2020</year>
+           <month>3</month>
+           <day>14</day>
+          </datetime>
+         </property>
+         <property name="maximumDate">
+          <date>
+           <year>2022</year>
+           <month>1</month>
+           <day>1</day>
+          </date>
+         </property>
+         <property name="minimumDate">
+          <date>
+           <year>1986</year>
+           <month>1</month>
+           <day>1</day>
+          </date>
+         </property>
+         <property name="calendarPopup">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -465,9 +519,26 @@ QDateEdit{ color: red,basesize:120x48 }
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pushButtonStop</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>stopdailydownload()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>436</x>
+     <y>291</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>getallsymbols()</slot>
+  <slot>stopdailydownload()</slot>
  </slots>
  <buttongroups>
   <buttongroup name="buttonGroupWeeklyDaily"/>

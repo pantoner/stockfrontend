@@ -2,6 +2,7 @@ import pandas as pd
 from pandas_datareader import data as pdr
 import yfinance as yf
 from datetime import datetime
+import config
 yf.pdr_override() # <== that's all it takes :-)
 
 def getdata(symbol):
@@ -16,6 +17,7 @@ def getdata(symbol):
 
 def getallsymbols2():
 	symbolraw = pd.read_fwf('nasdaqlisted.txt')
+	config.sentinal = 0
 	n = 0
 	symbollist = []
 	while n < len(symbolraw):
@@ -23,4 +25,14 @@ def getallsymbols2():
 		symbollist.append(onerow[0].split("|", 1)[0])
 		n+=1	
 	for symbol in symbollist:
-		getdata(symbol)
+		if config.sentinal == 0:
+			getdata(symbol)
+			print(symbol)
+		else:
+			print(config.sentinal)
+			print(config.startyear, config.startmonth, config.startday)
+			break
+
+def stopthread():
+	config.sentinal = 1
+
