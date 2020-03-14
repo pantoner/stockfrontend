@@ -10,18 +10,54 @@
     <height>600</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>800</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="baseSize">
+   <size>
+    <width>800</width>
+    <height>600</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTabWidget" name="tabWidget">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>9</x>
-      <y>9</y>
-      <width>611</width>
-      <height>351</height>
+      <x>0</x>
+      <y>0</y>
+      <width>800</width>
+      <height>600</height>
      </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>800</width>
+      <height>600</height>
+     </size>
+    </property>
+    <property name="baseSize">
+     <size>
+      <width>799</width>
+      <height>600</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
     </property>
     <property name="currentIndex">
      <number>0</number>
@@ -30,48 +66,348 @@
      <attribute name="title">
       <string>Download</string>
      </attribute>
-     <widget class="QPushButton" name="pushButtonWeekly">
+     <widget class="QLabel" name="labelsymbol">
       <property name="geometry">
        <rect>
-        <x>40</x>
-        <y>120</y>
-        <width>56</width>
-        <height>17</height>
+        <x>207</x>
+        <y>6</y>
+        <width>40</width>
+        <height>19</height>
        </rect>
       </property>
       <property name="text">
-       <string>Weekly</string>
-      </property>
-      <property name="default">
-       <bool>false</bool>
+       <string/>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButtonDaily">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>120</x>
-        <y>120</y>
-        <width>56</width>
-        <height>17</height>
+        <x>6</x>
+        <y>10</y>
+        <width>341</width>
+        <height>66</height>
        </rect>
       </property>
-      <property name="text">
-       <string>Dailly</string>
-      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="1" column="0">
+        <widget class="QRadioButton" name="radioButtonDaily">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>80</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="baseSize">
+          <size>
+           <width>80</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Daily</string>
+         </property>
+         <attribute name="buttonGroup">
+          <string notr="true">buttonGroupWeeklyDaily</string>
+         </attribute>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QRadioButton" name="radioButtonWeekly">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>80</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="baseSize">
+          <size>
+           <width>80</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Weekly</string>
+         </property>
+         <attribute name="buttonGroup">
+          <string notr="true">buttonGroupWeeklyDaily</string>
+         </attribute>
+        </widget>
+       </item>
+       <item row="0" column="2" rowspan="2">
+        <widget class="QDateEdit" name="dateEditStart">
+         <property name="minimumSize">
+          <size>
+           <width>120</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="baseSize">
+          <size>
+           <width>120</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">
+QDateEdit{ color: red,basesize:120x48 }
+</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1" rowspan="2">
+        <widget class="QLabel" name="labelStartDate">
+         <property name="text">
+          <string>Start Date</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
-     <widget class="QPushButton" name="pushButtonTickers">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>180</x>
+        <x>220</x>
+        <y>100</y>
+        <width>331</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <layout class="QFormLayout" name="formLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="labelDatebaseName">
+         <property name="minimumSize">
+          <size>
+           <width>120</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="baseSize">
+          <size>
+           <width>120</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Database Name</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="lineEdit">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>120</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="baseSize">
+          <size>
+           <width>120</width>
+           <height>40</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>160</y>
+        <width>246</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <layout class="QFormLayout" name="formLayout_2">
+       <item row="0" column="1">
+        <widget class="QRadioButton" name="radioButton_2">
+         <property name="minimumSize">
+          <size>
+           <width>120</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="baseSize">
+          <size>
+           <width>120</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Update</string>
+         </property>
+         <attribute name="buttonGroup">
+          <string notr="true">buttonGroupNewUpdate</string>
+         </attribute>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QRadioButton" name="radioButton">
+         <property name="minimumSize">
+          <size>
+           <width>120</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="baseSize">
+          <size>
+           <width>120</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>New </string>
+         </property>
+         <attribute name="buttonGroup">
+          <string notr="true">buttonGroupNewUpdate</string>
+         </attribute>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>230</y>
+        <width>246</width>
+        <height>50</height>
+       </rect>
+      </property>
+      <layout class="QFormLayout" name="formLayout_3">
+       <item row="0" column="1">
+        <widget class="QPushButton" name="pushButton">
+         <property name="minimumSize">
+          <size>
+           <width>120</width>
+           <height>48</height>
+          </size>
+         </property>
+         <property name="baseSize">
+          <size>
+           <width>120</width>
+           <height>48</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Stop</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QPushButton" name="pushButtonTickers">
+         <property name="minimumSize">
+          <size>
+           <width>120</width>
+           <height>48</height>
+          </size>
+         </property>
+         <property name="baseSize">
+          <size>
+           <width>120</width>
+           <height>48</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Get Data</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="">
+      <property name="geometry">
+       <rect>
+        <x>360</x>
         <y>20</y>
-        <width>56</width>
-        <height>17</height>
+        <width>311</width>
+        <height>42</height>
        </rect>
       </property>
-      <property name="text">
-       <string>Get Tickers</string>
-      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <widget class="QLabel" name="labelEndDate">
+         <property name="text">
+          <string>End Date</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QDateEdit" name="dateEditEnd">
+         <property name="minimumSize">
+          <size>
+           <width>120</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="baseSize">
+          <size>
+           <width>120</width>
+           <height>40</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QCheckBox" name="checkBoxToday">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>44</width>
+           <height>16</height>
+          </size>
+         </property>
+         <property name="baseSize">
+          <size>
+           <width>44</width>
+           <height>16</height>
+          </size>
+         </property>
+         <property name="focusPolicy">
+          <enum>Qt::WheelFocus</enum>
+         </property>
+         <property name="autoFillBackground">
+          <bool>true</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">{baseSize: 44x16}</string>
+         </property>
+         <property name="text">
+          <string>Today</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
+    </widget>
+    <widget class="QWidget" name="tabDescribe">
+     <attribute name="title">
+      <string>Describe</string>
+     </attribute>
     </widget>
     <widget class="QWidget" name="Indicators">
      <attribute name="title">
@@ -81,6 +417,11 @@
     <widget class="QWidget" name="Algo">
      <attribute name="title">
       <string>Algo</string>
+     </attribute>
+    </widget>
+    <widget class="QWidget" name="tabbyStock">
+     <attribute name="title">
+      <string>byStock</string>
      </attribute>
     </widget>
     <widget class="QWidget" name="Apply">
@@ -104,8 +445,6 @@
  </widget>
  <tabstops>
   <tabstop>pushButtonTickers</tabstop>
-  <tabstop>pushButtonWeekly</tabstop>
-  <tabstop>pushButtonDaily</tabstop>
   <tabstop>tabWidget</tabstop>
  </tabstops>
  <resources/>
@@ -130,4 +469,8 @@
  <slots>
   <slot>getallsymbols()</slot>
  </slots>
+ <buttongroups>
+  <buttongroup name="buttonGroupWeeklyDaily"/>
+  <buttongroup name="buttonGroupNewUpdate"/>
+ </buttongroups>
 </ui>
