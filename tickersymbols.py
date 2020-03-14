@@ -13,7 +13,8 @@ def formatdate(year,month,day):
 def getdata(symbol):
 	todaydate = datetime.today().strftime('%Y-%m-%d')
 	thisstartdate = formatdate(config.startyear,config.startmonth,config.startday)
-	data = pdr.get_data_yahoo(symbol, start=thisstartdate, end= todaydate)
+	thisenddate = formatdate(config.endyear,config.endmonth,config.endday)
+	data = pdr.get_data_yahoo(symbol, start=thisstartdate, end= thisenddate)
 	print(data)
     #stockprices = data[::-1] #reverses the data by rows
     #closelist = stockprices.Close.values.tolist()

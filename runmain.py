@@ -17,10 +17,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 		self.show()
 		self.dailydownloadthread = DailyDownLoadThread()
 		config.startyear = self.dateEditStart.date().year();config.startmonth = self.dateEditStart.date().month();config.startday = self.dateEditStart.date().day()
+		config.endyear = self.dateEditEnd.date().year();config.endmonth = self.dateEditEnd.date().month();config.endday = self.dateEditEnd.date().day()
 
 
 	def getallsymbols(self):
 		config.startyear = self.dateEditStart.date().year();config.startmonth = self.dateEditStart.date().month();config.startday = self.dateEditStart.date().day()
+		config.endyear = self.dateEditEnd.date().year();config.endmonth = self.dateEditEnd.date().month();config.endday = self.dateEditEnd.date().day()
 		self.dailydownloadthread.start()
 
 	def stopdailydownload(self):
