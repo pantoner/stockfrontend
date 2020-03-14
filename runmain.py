@@ -20,6 +20,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
 
 	def getallsymbols(self):
+		config.startyear = self.dateEditStart.date().year();config.startmonth = self.dateEditStart.date().month();config.startday = self.dateEditStart.date().day()
 		self.dailydownloadthread.start()
 
 	def stopdailydownload(self):

@@ -5,9 +5,15 @@ from datetime import datetime
 import config
 yf.pdr_override() # <== that's all it takes :-)
 
+def formatdate(year,month,day):
+	thisdate = str(str(year) +'-'+str(month)+'-'+str(day))
+	return thisdate
+
+
 def getdata(symbol):
 	todaydate = datetime.today().strftime('%Y-%m-%d')
-	data = pdr.get_data_yahoo(symbol, start="2019-10-01", end= todaydate)
+	thisstartdate = formatdate(config.startyear,config.startmonth,config.startday)
+	data = pdr.get_data_yahoo(symbol, start=thisstartdate, end= todaydate)
 	print(data)
     #stockprices = data[::-1] #reverses the data by rows
     #closelist = stockprices.Close.values.tolist()
@@ -30,7 +36,6 @@ def getallsymbols2():
 			print(symbol)
 		else:
 			print(config.sentinal)
-			print(config.startyear, config.startmonth, config.startday)
 			break
 
 def stopthread():
