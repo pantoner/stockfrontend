@@ -60,7 +60,7 @@
      <string notr="true"/>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>6</number>
     </property>
     <widget class="QWidget" name="Download">
      <attribute name="title">
@@ -323,6 +323,9 @@ QDateEdit{ color: red,basesize:120x48 }
       <layout class="QFormLayout" name="formLayout_3">
        <item row="0" column="1">
         <widget class="QPushButton" name="pushButtonStop">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="minimumSize">
           <size>
            <width>120</width>
@@ -463,12 +466,12 @@ QDateEdit{ color: red,basesize:120x48 }
       <string>Describe</string>
      </attribute>
     </widget>
-    <widget class="QWidget" name="Indicators">
+    <widget class="QWidget" name="tabIndicators">
      <attribute name="title">
       <string>Indicators</string>
      </attribute>
     </widget>
-    <widget class="QWidget" name="Algo">
+    <widget class="QWidget" name="tabAlgo">
      <attribute name="title">
       <string>Algo</string>
      </attribute>
@@ -478,10 +481,40 @@ QDateEdit{ color: red,basesize:120x48 }
       <string>byStock</string>
      </attribute>
     </widget>
-    <widget class="QWidget" name="Apply">
+    <widget class="QWidget" name="tabApply">
      <attribute name="title">
       <string>Apply</string>
      </attribute>
+    </widget>
+    <widget class="QWidget" name="tabConfig">
+     <attribute name="title">
+      <string>Config</string>
+     </attribute>
+     <widget class="QPushButton" name="pushButtonConfig">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>50</y>
+        <width>120</width>
+        <height>48</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>120</width>
+        <height>48</height>
+       </size>
+      </property>
+      <property name="baseSize">
+       <size>
+        <width>120</width>
+        <height>48</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>Store Stock Data</string>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>
@@ -535,10 +568,27 @@ QDateEdit{ color: red,basesize:120x48 }
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pushButtonConfig</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>browseforstockdir()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>191</x>
+     <y>110</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>getallsymbols()</slot>
   <slot>stopdailydownload()</slot>
+  <slot>browseforstockdir()</slot>
  </slots>
  <buttongroups>
   <buttongroup name="buttonGroupWeeklyDaily"/>

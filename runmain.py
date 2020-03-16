@@ -4,8 +4,9 @@ from PyQt5.QtCore import *
 from PyQt5.QtMultimedia import *
 from PyQt5.QtMultimediaWidgets import *
 from PyQt5.QtWidgets import QMessageBox
-from main4 import Ui_MainWindow
+from main5 import Ui_MainWindow
 import pandas as pd
+import os
 from datetime import datetime
 import tickersymbols
 import config
@@ -46,6 +47,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 			config.endday = datetime.today().strftime('%d')
 		else: 
 			self.dateEditEnd.setEnabled(True)
+
+	def browseforstockdir(self):
+	    options = QFileDialog.Options()
+	    options |= QFileDialog.DontUseNativeDialog
+	    fileName, _ = QFileDialog.getOpenFileName(self,"QFileDialog.getOpenFileName()", "","All Files (*);;Python Files (*.py)", options=options)
+	    fileName = os.path.dirname(fileName)
+	    if os.path.exists("stocksdir.p"):
+	        os.remove("stocksdir.p")
+	    if fileName:
+	        directory = dict({'stocksdir': fileName})
+	        pickle.dump(directory, open( "stocksdir.p", "wb" ) )
+	        print(fileName)
+	        self.lineEditStockDir.setText(fileName)
 
 class DailyDownLoadThread(QThread):
 	signal = pyqtSignal('PyQt_PyObject')

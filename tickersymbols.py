@@ -43,9 +43,12 @@ def getdata(symbol):
 	volumelist = stockprices.Volume.values.tolist()
 	thisdict = {"symbol":symbol,"startdate":thisstartdate,"enddate":thisenddate, "openlist":openlist,\
 	"closelist":closelist,"highlist":highlist,"lowlist":lowlist ,"volumelist":volumelist};thisjson = json.dumps(thisdict)
-	with open('{}/{}.msgpack'.format(path,symbol), 'wb') as outfile:
-		umsgpack.pack(thisjson, outfile)
-	print("{} loaded to mspack file".format(symbol))
+	try:
+		with open('{}/{}.msgpack'.format(path,symbol), 'wb') as outfile:
+			umsgpack.pack(thisjson, outfile)
+		print("{} loaded to mspack file".format(symbol))
+	except FileNotFoundError:
+		return
 
 def getdata_tsqllite(symbol): # not being used
 	todaydate = datetime.today().strftime('%Y-%m-%d')
