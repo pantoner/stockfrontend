@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtMultimedia import *
 from PyQt5.QtMultimediaWidgets import *
+from PyQt5.QtWidgets import QMessageBox
 from main4 import Ui_MainWindow
 import pandas as pd
 from datetime import datetime
@@ -21,13 +22,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 		config.endyear = self.dateEditEnd.date().year();config.endmonth = self.dateEditEnd.date().month();config.endday = self.dateEditEnd.date().day()
 		self.checkBoxToday.stateChanged.connect(self.CalendarHide)
 
+
 	def getallsymbols(self):
 		config.startyear = self.dateEditStart.date().year();config.startmonth = self.dateEditStart.date().month();config.startday = self.dateEditStart.date().day()
 		config.endyear = self.dateEditEnd.date().year();config.endmonth = self.dateEditEnd.date().month();config.endday = self.dateEditEnd.date().day()
+		self.pushButtonStop.setEnabled(True)
+		self.pushButtonTickers.setEnabled(False)
 		self.dailydownloadthread.start()
 
+
 	def stopdailydownload(self):
+		QMessageBox.about(self, "See Data", "Press to Wait for Data!")
+		self.pushButtonStop.setEnabled(False)
+		self.pushButtonTickers.setEnabled(True)
 		self.dailydownloadthread.stopdailydownload()
+		
 
 	def CalendarHide(self, state):
 		if self.checkBoxToday.isChecked(): 

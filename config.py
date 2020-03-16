@@ -7,3 +7,10 @@ startday = "1"
 endyear = ""
 endmonth = ""
 endday = ""
+
+#outcome = pd.DataFrame(outcomelist)
+dbname = 'sstocks.db'
+tablename = 'cloud'
+#outcome.to_sql(tablename, conn, if_exists='append')
+#print('data has been entered into database')
+rawstockdatapath = "C:/Users/VH189DW/Documents/twoyearsdata/"

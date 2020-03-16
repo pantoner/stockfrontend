@@ -127,6 +127,7 @@ class Ui_MainWindow(object):
         self.formLayout_3.setContentsMargins(0, 0, 0, 0)
         self.formLayout_3.setObjectName("formLayout_3")
         self.pushButtonStop = QtWidgets.QPushButton(self.layoutWidget3)
+        self.pushButtonStop.setEnabled(False)
         self.pushButtonStop.setMinimumSize(QtCore.QSize(120, 48))
         self.pushButtonStop.setBaseSize(QtCore.QSize(120, 48))
         self.pushButtonStop.setObjectName("pushButtonStop")
