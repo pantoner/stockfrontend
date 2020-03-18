@@ -7,42 +7,54 @@ import yfinance as yf
 from datetime import datetime
 import webbrowser
 import config
+import getmsgpack
 yf.pdr_override() # <== that's all it takes :-)
 
-html_string = '''
-				<html>
-				  <head><title>HTML Pandas Dataframe with CSS</title></head>
-				  <link rel="stylesheet" type="text/css" href="df_style.css"/>
-				  <body>
-					{table}
-				  </body>
-				</html>.
-				'''
-path = config.rawstockdatapath
+#path = config.rawstockdatapath
+
+html_string  = config.html_string 
 
 def formatdate(year,month,day):
 	thisdate = str(str(year) +'-'+str(month)+'-'+str(day))
 	return thisdate
 
-def loaddata(dbname,tablename,df):
+def loaddata(dbname,tablename,df): # not in use for now unless going back to sqlite
 	print(dbname , tablename)
 	conn = sqlite3.connect(dbname)
 	df.to_sql(tablename, conn, if_exists='append')
 	print('data has been entered into {}'.format(DB_NAME))
 
-def getdata(symbol):
+def getdata(symbol): # this gets the daily data
 	todaydate = datetime.today().strftime('%Y-%m-%d')
 	thisstartdate = formatdate(config.startyear,config.startmonth,config.startday)
 	thisenddate = formatdate(config.endyear,config.endmonth,config.endday)
 	data = pdr.get_data_yahoo(symbol, start=thisstartdate, end= thisenddate)
+	thisjson = convertpricetodict(symbol,data)
+	tomsgpackpath(config.rawstockdatapath,symbol,thisjson)
+
+def getweeklydata(symbol): #gets weekly data
+	symbolobj = yf.Ticker(symbol)
+	symboldf = symbolobj.history(period="max", interval = '1wk')
+	print(symboldf)
+	thisjson = convertpricetodict(symbol,symboldf)
+	tomsgpackpath(config.rawstockdatapath,symbol,thisjson)
+
+
+def convertpricetodict(symbol,data): #after pulling the data from yahoo this converts it to json for msgpack
 	stockprices = data[::-1] #reverses the data by rows
 	openlist = stockprices.Open.values.tolist()
 	closelist = stockprices.Close.values.tolist()
 	highlist = stockprices.High.values.tolist()
 	lowlist = stockprices.Low.values.tolist()
 	volumelist = stockprices.Volume.values.tolist()
-	thisdict = {"symbol":symbol,"startdate":thisstartdate,"enddate":thisenddate, "openlist":openlist,\
-	"closelist":closelist,"highlist":highlist,"lowlist":lowlist ,"volumelist":volumelist};thisjson = json.dumps(thisdict)
+	stockprices = stockprices.reset_index();datelist = stockprices.Date.values.tolist()
+	thisdict = {"symbol":symbol, "openlist":openlist,"closelist":closelist,"highlist":highlist,\
+	"lowlist":lowlist ,"volumelist":volumelist,"datelist":datelist};thisjson = json.dumps(thisdict)
+	return thisjson
+# symbol = yf.Ticker("MSFT")
+# symboldf = symbol.history(period="max", interval = '1wk')
+
+def tomsgpackpath(path,symbol,thisjson): #creates the mssage pack and stores it in path folder
 	try:
 		with open('{}/{}.msgpack'.format(path,symbol), 'wb') as outfile:
 			umsgpack.pack(thisjson, outfile)
@@ -66,27 +78,9 @@ def getdata_tsqllite(symbol): # not being used
 	conn = sqlite3.connect(config.dbname)
 	data.to_sql(config.tablename, conn, if_exists='append')
 	print('data has been entered into {}'.format(config.dbname))
-	#conn = sqlite3.connect('stocks','cloud')
-	#data.to_sql('stocks', conn, if_exists="replace")
-	#print('data has been entered into {}'.format('stocks'))
-	#loaddata(config.dbname,config.tablename,data)   
-	#stockprices = data[::-1] #reverses the data by rows
-	#closelist = stockprices.Close.values.tolist()
-	#highlist = stockprices.High.values.tolist()
-	#lowlist = stockprices.Low.values.tolist()
- 
-	#print(closelist,highlist,lowlist)
 
-# html_string = '''
-# 				<html>
-# 				  <head><title>HTML Pandas Dataframe with CSS</title></head>
-# 				  <link rel="stylesheet" type="text/css" href="df_style.css"/>
-# 				  <body>
-# 					{table}
-# 				  </body>
-# 				</html>.
 # 				'''
-def viewanydf(df,html_string):
+def viewanydf(df,html_string):  #send dataframe of one signal here to see it in a browser
 	with open('myhtml2.html', 'w') as f:
 		f.write(html_string.format(table=df.to_html(classes='mystyle')))
 	webbrowser.open('myhtml2.html')
@@ -99,9 +93,11 @@ def getminmaxdates(df):
 def viewdatabase(html_string,database):
 	conn = sqlite3.connect(database)
 	conn.text_factory = bytes
-	df = pd.read_sql_query("select Distinct Date from cloud",conn)
+	df = pd.read_sql_query("select Distinct Date from cloud",conn) #this query goes to temp table to see data
 	df = getminmaxdates(df)
 	viewanydf(df,html_string) 
+
+
 
 	#conn = sqlite3.connect("C://Python37//predictatl//stockmarket//sstocks.db") 
 	#cur = conn.cursor()
@@ -119,9 +115,22 @@ def getallsymbols2():  # this runs getdata or stops it based on button click fro
 			print(config.sentinal)
 			break
 
+def getallsymbolsweekly(): #this runs get weekly data in a seperate thread from button click on front end
+	symbollist = getonlysymbols()
+	for symbol in symbollist:
+		if config.sentinal == 0:
+			getweeklydata(symbol)
+			print(symbol)
+		else:
+			print(config.sentinal) #stop dailydownload from runmain.py
+			break
+
+
 def stopthread():
 	config.sentinal = 1
-	viewdatabase(html_string,"sstocks.db")
+	#viewdatabase(html_string,"sstocks.db")  #used when sqllite was in use
+	symbol = "ACAD"
+	getmsgpack.msgpacktodf(symbol,config.rawstockdatapath)
 
 def getonlysymbols(): #this creates the symbollist from nasdaq
 	symbolraw = pd.read_fwf('nasdaqlisted.txt')

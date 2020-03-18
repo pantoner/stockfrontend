@@ -14,3 +14,13 @@ tablename = 'cloud'
 #outcome.to_sql(tablename, conn, if_exists='append')
 #print('data has been entered into database')
 rawstockdatapath = ""
+
+html_string = html_string = '''
+				<html>
+				  <head><title>HTML Pandas Dataframe with CSS</title></head>
+				  <link rel="stylesheet" type="text/css" href="df_style.css"/>
+				  <body>
+					{table}
+				  </body>
+				</html>.
+				'''
