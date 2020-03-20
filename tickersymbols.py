@@ -24,20 +24,38 @@ def loaddata(dbname,tablename,df): # not in use for now unless going back to sql
 	df.to_sql(tablename, conn, if_exists='append')
 	print('data has been entered into {}'.format(DB_NAME))
 
+def createresults(symboldf): # creates results
+	symboldf = symboldf.sort_values(by="Date",ascending=False)
+	symboldf['day1results'] = symboldf.Close/symboldf.Open
+	symboldf['day2close'] = symboldf.Close.shift(1)/symboldf.Close
+	symboldf['day3open'] = symboldf.Close.shift(2)/symboldf.Close
+	return symboldf
+
+
+
 def getdata(symbol): # this gets the daily data
-	todaydate = datetime.today().strftime('%Y-%m-%d')
+	todaydate = datetime.today().strftime('%Y-%m-%d') #might not need this 
 	thisstartdate = formatdate(config.startyear,config.startmonth,config.startday)
 	thisenddate = formatdate(config.endyear,config.endmonth,config.endday)
 	data = pdr.get_data_yahoo(symbol, start=thisstartdate, end= thisenddate)
+	data = createresults(data)
 	thisjson = convertpricetodict(symbol,data)
-	tomsgpackpath(config.rawstockdatapath,symbol,thisjson)
+	try:
+		tomsgpackpath(config.rawstockdatapath,symbol,thisjson)
+	except (OSError,KeyError) as e: # trying end elegant not crash program
+		return
+
 
 def getweeklydata(symbol): #gets weekly data
 	symbolobj = yf.Ticker(symbol)
 	symboldf = symbolobj.history(period="max", interval = '1wk')
+	symboldf = createresults(symboldf)
 	print(symboldf)
 	thisjson = convertpricetodict(symbol,symboldf)
-	tomsgpackpath(config.rawstockdatapath,symbol,thisjson)
+	try:
+		tomsgpackpath(config.rawstockdatapath,symbol,thisjson)
+	except (OSError, KeyError) as e: # trying end elegant not crash program
+		return
 
 
 def convertpricetodict(symbol,data): #after pulling the data from yahoo this converts it to json for msgpack
@@ -47,9 +65,12 @@ def convertpricetodict(symbol,data): #after pulling the data from yahoo this con
 	highlist = stockprices.High.values.tolist()
 	lowlist = stockprices.Low.values.tolist()
 	volumelist = stockprices.Volume.values.tolist()
+	day1results = stockprices.day1results.values.tolist()
+	day2close = stockprices.day2close.values.tolist()
+	day3open = stockprices.day3open.values.tolist()
 	stockprices = stockprices.reset_index();datelist = stockprices.Date.values.tolist()
 	thisdict = {"symbol":symbol, "openlist":openlist,"closelist":closelist,"highlist":highlist,\
-	"lowlist":lowlist ,"volumelist":volumelist,"datelist":datelist};thisjson = json.dumps(thisdict)
+	"lowlist":lowlist ,"volumelist":volumelist,"datelist":datelist,"day1results":day1results,"day2close":day2close,"day3open":day3open};thisjson = json.dumps(thisdict)
 	return thisjson
 # symbol = yf.Ticker("MSFT")
 # symboldf = symbol.history(period="max", interval = '1wk')

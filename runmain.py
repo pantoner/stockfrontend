@@ -36,6 +36,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 			self.dailydownloadthread.start()
 		if self.radioButtonWeekly.isChecked():
 			config.rawstockdatapath = "C:/Users/VH189DW/Documents/weeklydata"
+			self.dateEditStart.setEnabled(False)
+			self.dateEditEnd.setEnabled(False)
+			self.checkBoxToday.setEnabled(False)
 			self.pushButtonStop.setEnabled(True)
 			self.pushButtonTickers.setEnabled(False)
 			self.weeklydownloadthread.start()
@@ -45,6 +48,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 		QMessageBox.about(self, "See Data", "Press to Wait for Data!")
 		self.pushButtonStop.setEnabled(False)
 		self.pushButtonTickers.setEnabled(True)
+		self.dateEditStart.setEnabled(True)
+		self.dateEditEnd.setEnabled(True)
+		self.checkBoxToday.setEnabled(True)
 		self.dailydownloadthread.stopdailydownload()
 		
 

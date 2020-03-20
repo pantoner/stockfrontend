@@ -11,6 +11,8 @@ pandas = "*"
 pandas-datareader = "*"
 yfinance = "*"
 umsgpack = "*"
+rolling = "*"
+joblib = "*"
 
 [requires]
 python_version = "3.7"
