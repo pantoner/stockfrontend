@@ -75,9 +75,9 @@ def convertpricetodict(symbol,data): #after pulling the data from yahoo this con
 # symbol = yf.Ticker("MSFT")
 # symboldf = symbol.history(period="max", interval = '1wk')
 
-def tomsgpackpath(path,symbol,thisjson): #creates the mssage pack and stores it in path folder
+def tomsgpackpath(path,symbol,thisjson,date=""): #creates the mssage pack and stores it in path folder
 	try:
-		with open('{}/{}.msgpack'.format(path,symbol), 'wb') as outfile:
+		with open('{}/{}{}.msgpack'.format(path,symbol,date), 'wb') as outfile:
 			umsgpack.pack(thisjson, outfile)
 		print("{} loaded to mspack file".format(symbol))
 	except FileNotFoundError:
@@ -164,5 +164,8 @@ def getonlysymbols(): #this creates the symbollist from nasdaq
 		n+=1
 	return symbollist
 
-
+# try:
+#     os.mkdir(dirpath)
+# except FileExistsError:
+#     print('Directory {} already exists'.format(dirpath))
 

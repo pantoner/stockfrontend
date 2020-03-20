@@ -1,3 +1,5 @@
+import os
+import re
 import umsgpack
 import tickersymbols
 import config
@@ -103,15 +105,14 @@ def getonlysymbols(): #this creates the symbollist from nasdaq
 	return symbollist
 
 
-# symbollist = getonlysymbols()
-# for symbol in symbollist:
-# 	#createresults(symbol)
-# 	break
+def symbolsfromdir(path):
+	listoffiles = os.listdir(path)
+	symbollist=[]
+	for k in listoffiles:
+		symbol = re.sub(".msgpack", "", k)
+		symbollist.append(symbol)
+	return symbollist
 
-# symbollist = getonlysymbols()
-# for symbol in symbollist:
-# 	msgpacktodf(symbol,path)
-# 	break
 
 ######For each symbol, then for each row run the getcloudformula
 def thislistflip(thelist):

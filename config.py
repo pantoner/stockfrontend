@@ -14,6 +14,7 @@ tablename = 'cloud'
 #outcome.to_sql(tablename, conn, if_exists='append')
 #print('data has been entered into database')
 rawstockdatapath = ""
+dailycloud = "C:/Users/VH189DW/Documents/Indicators/Cloud"
 
 html_string = html_string = '''
 				<html>
